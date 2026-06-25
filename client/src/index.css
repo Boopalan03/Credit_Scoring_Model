@@ -1,0 +1,469 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   THEME: CSS CUSTOM PROPERTIES
+   Light mode = default, dark mode = .dark class on <html>
+──────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-root:         #f0f4ff;
+  --bg-surface:      rgba(255, 255, 255, 0.85);
+  --bg-surface-alt:  rgba(238, 242, 255, 0.7);
+  --bg-input:        rgba(255, 255, 255, 0.95);
+  --bg-sidebar:      rgba(255, 255, 255, 0.92);
+  --bg-card:         rgba(255,255,255,0.9);
+
+  /* Borders */
+  --border-default:  rgba(99, 102, 241, 0.15);
+  --border-subtle:   rgba(148, 163, 184, 0.25);
+  --border-strong:   rgba(99, 102, 241, 0.35);
+
+  /* Text */
+  --text-primary:    #1e1b4b;
+  --text-secondary:  #475569;
+  --text-muted:      #94a3b8;
+  --text-accent:     #4f46e5;
+
+  /* Accents */
+  --accent-glow:     rgba(99, 102, 241, 0.09);
+  --shadow-card:     0 4px 24px -4px rgba(99,102,241,0.1);
+
+  /* Root gradient */
+  --bg-gradient-1:   rgba(199, 210, 254, 0.55);
+  --bg-gradient-2:   rgba(221, 214, 254, 0.35);
+  --bg-gradient-3:   rgba(233, 213, 255, 0.25);
+}
+
+.dark {
+  --bg-root:         #020617;
+  --bg-surface:      rgba(15, 23, 42, 0.55);
+  --bg-surface-alt:  rgba(15, 23, 42, 0.3);
+  --bg-input:        rgba(2, 6, 23, 0.8);
+  --bg-sidebar:      rgba(15, 23, 42, 0.7);
+  --bg-card:         rgba(15, 23, 42, 0.6);
+
+  --border-default:  rgba(255, 255, 255, 0.06);
+  --border-subtle:   rgba(51, 65, 85, 0.5);
+  --border-strong:   rgba(99, 102, 241, 0.3);
+
+  --text-primary:    #f1f5f9;
+  --text-secondary:  #94a3b8;
+  --text-muted:      #475569;
+  --text-accent:     #818cf8;
+
+  --accent-glow:     rgba(99, 102, 241, 0.12);
+  --shadow-card:     0 4px 24px -4px rgba(0,0,0,0.5);
+
+  --bg-gradient-1:   rgba(30, 27, 75, 0.45);
+  --bg-gradient-2:   rgba(15, 23, 42, 0.95);
+  --bg-gradient-3:   rgba(67, 56, 202, 0.3);
+}
+
+/* ─────────────────────────────────────────────
+   BASE STYLES
+──────────────────────────────────────────────── */
+@layer base {
+  html {
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  body {
+    background-color: var(--bg-root);
+    color: var(--text-primary);
+    @apply font-sans antialiased min-h-screen;
+    background-image:
+      radial-gradient(at 0% 0%,   var(--bg-gradient-1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, var(--bg-gradient-3) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, var(--bg-gradient-2) 0px, transparent 100%);
+    background-attachment: fixed;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  ::selection {
+    @apply bg-indigo-500 text-white;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   COMPONENTS
+──────────────────────────────────────────────── */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Sidebar */
+.sidebar-panel {
+  background: var(--bg-sidebar);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border-default);
+  transition: background 0.3s ease;
+}
+
+/* Nav Items */
+.nav-item {
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+}
+.nav-item:hover {
+  background: var(--accent-glow);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.12));
+  border-color: var(--border-strong);
+  color: #818cf8;
+  font-weight: 600;
+}
+
+/* Inputs / Selects */
+.theme-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: border-color 0.2s, background 0.2s;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  width: 100%;
+}
+.theme-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+/* Metric Cards */
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Table rows */
+.theme-table-row:hover {
+  background: var(--accent-glow);
+}
+
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY
+──────────────────────────────────────────────── */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+}
+.text-gradient-green {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-teal-400;
+}
+.text-gradient-red {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-orange-400;
+}
+
+/* ─────────────────────────────────────────────
+   BUTTONS
+──────────────────────────────────────────────── */
+.btn-premium {
+  @apply relative overflow-hidden transition-all duration-300 font-semibold text-white;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  box-shadow: 0 4px 20px -4px rgba(99, 102, 241, 0.5);
+}
+.btn-premium:hover {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed, #db2777);
+  box-shadow: 0 6px 28px -4px rgba(99, 102, 241, 0.65);
+  transform: translateY(-1px);
+}
+.btn-premium:active { transform: scale(0.98); }
+.btn-premium:disabled { opacity: 0.5; pointer-events: none; }
+
+/* ─────────────────────────────────────────────
+   THEME TOGGLE
+──────────────────────────────────────────────── */
+.theme-toggle {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0.45rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle:hover {
+  border-color: var(--border-strong);
+  color: var(--text-accent);
+  background: var(--accent-glow);
+}
+
+/* ─────────────────────────────────────────────
+   TOAST ANIMATION
+──────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeInUp 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.55); }
+
+/* ─────────────────────────────────────────────
+   KYC & VERIFICATION UI
+──────────────────────────────────────────────── */
+/* Step progress gradient line */
+.step-gradient-line {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+}
+
+/* Step circle styles */
+.step-circle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.step-circle.completed {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-color: transparent;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+}
+.step-circle.active {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Verified badge pulse */
+@keyframes verifiedPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
+.verified-badge {
+  animation: verifiedPulse 2s ease-in-out 1;
+}
+
+/* Animated checkmark */
+@keyframes drawCheck {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+.animated-check path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: drawCheck 0.5s ease-out 0.2s forwards;
+}
+
+/* KYC form section */
+.kyc-form-section {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-default);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+.kyc-form-section:hover {
+  border-color: var(--border-strong);
+}
+
+/* Verification summary card */
+.verification-card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+.verification-card.verified {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+}
+.dark .verification-card.verified {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+/* Section divider with gradient */
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  border: none;
+}
+
+/* KYC completion animation */
+@keyframes celebrateIn {
+  0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+  60% { transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.celebrate-in {
+  animation: celebrateIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ─────────────────────────────────────────────
+   PRINT (Credit Certificate — Single Page)
+──────────────────────────────────────────────── */
+@media print {
+
+  /* ── Page Setup: A4, no browser margins ── */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  /* ── Hide everything except the certificate ── */
+  aside,
+  header,
+  footer,
+  nav,
+  .print\:hidden,
+  #theme-toggle {
+    display: none !important;
+  }
+
+  /* ── Reset body / html ── */
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #1e1b4b !important;
+    font-size: 10pt;
+    overflow: hidden;
+  }
+
+  /* ── Make the flex layout fill exactly one page ── */
+  body > #root,
+  body > #root > div {
+    display: block !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: hidden !important;
+  }
+
+  main {
+    display: block !important;
+    width: 210mm !important;
+    min-height: unset !important;
+    padding: 8mm !important;
+    overflow: hidden !important;
+  }
+
+  /* ── The certificate wrapper ── */
+  .max-w-3xl {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* ── Back button row above certificate ── */
+  .max-w-3xl > .flex.justify-between {
+    display: none !important;
+  }
+
+  /* ── Force the certificate panel itself onto the page ── */
+  .glass-panel {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: 1.5px solid #c7d2fe !important;
+    border-radius: 12px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: visible !important;
+  }
+
+  /* ── Scale content to fit A4 while keeping single page ── */
+  .max-w-3xl > .space-y-6 > .glass-panel,
+  #credit-cert-panel {
+    transform-origin: top left;
+    transform: scale(0.87);
+    width: calc(100% / 0.87) !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* ── Certificate view root ── */
+  #cert-view-root {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* ── Typography fixes for print ── */
+  h3, h4, p, span, td, th {
+    color: #1e1b4b !important;
+  }
+
+  .text-indigo-400, .text-indigo-300, .text-indigo-500 { color: #4f46e5 !important; }
+  .text-emerald-400 { color: #059669 !important; }
+  .text-rose-400    { color: #e11d48 !important; }
+  .text-slate-400, .text-slate-500 { color: #64748b !important; }
+  .text-slate-200, .text-slate-100 { color: #1e1b4b !important; }
+
+  /* ── Gradient accent bar ── */
+  .h-1\.5 {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Score progress bar fill ── */
+  .rounded-full {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── APPROVED / DENIED stamp ── */
+  .rotate-2, .-rotate-2 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Key scoring feature rows ── */
+  .py-2.px-3 {
+    background: #f0f4ff !important;
+    border-color: #c7d2fe !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Ensure everything stays on one page ── */
+  * {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
