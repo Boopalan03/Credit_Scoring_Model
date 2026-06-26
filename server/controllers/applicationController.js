@@ -222,8 +222,8 @@ const submitApplication = async (req, res) => {
     };
 
     try {
-      const mlPort = process.env.ML_PORT || 5001;
-      const mlResponse = await fetch(`http://127.0.0.1:${mlPort}/predict`, {
+      const mlServiceUrl = process.env.ML_SERVICE_URL || `http://127.0.0.1:${process.env.ML_PORT || 5001}`;
+      const mlResponse = await fetch(`${mlServiceUrl}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(mlPayload)

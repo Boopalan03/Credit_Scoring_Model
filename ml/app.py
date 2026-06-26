@@ -281,7 +281,7 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # Flask server runs on port 5001 by default
-    port = int(os.environ.get('ML_PORT', 5001))
+    # Flask server runs on port 5001 by default, or checks PORT for Render
+    port = int(os.environ.get('PORT', os.environ.get('ML_PORT', 5001)))
     print(f"Starting Flask ML API Server on port {port}...")
     app.run(host='0.0.0.0', port=port, debug=False)
