@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Shield, Zap, TrendingUp, HelpCircle, CheckCircle, Smartphone } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
+import { Footer } from '../components/layout/Footer';
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -16,10 +17,7 @@ const Home = () => {
         <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] bg-emerald-600/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="container px-4 md:px-6 mx-auto relative z-10 text-center space-y-6 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-blue-600 dark:text-blue-400">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            AI-Driven Credit Intelligence for Indian Banks
-          </div>
+
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white">
             AI-Powered Credit Scoring <br />
@@ -128,6 +126,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

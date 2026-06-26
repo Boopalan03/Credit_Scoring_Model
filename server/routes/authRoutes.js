@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, logoutUser } = require('../controllers/authController');
+const { registerUser, loginUser, logoutUser, changePassword } = require('../controllers/authController');
 const { authLimiter } = require('../middleware/rateLimiter');
 const { validate } = require('../middleware/validateMiddleware');
 const { check } = require('express-validator');
+const { protect } = require('../middleware/authMiddleware');
 
 router.post('/register', authLimiter, validate([
   check('name', 'Name is required').not().isEmpty(),
@@ -17,5 +18,10 @@ router.post('/login', authLimiter, validate([
 ]), loginUser);
 
 router.post('/logout', logoutUser);
+
+router.put('/change-password', protect, validate([
+  check('currentPassword', 'Current password is required').not().isEmpty(),
+  check('newPassword', 'Please enter a new password with 6 or more characters').isLength({ min: 6 })
+]), changePassword);
 
 module.exports = router;

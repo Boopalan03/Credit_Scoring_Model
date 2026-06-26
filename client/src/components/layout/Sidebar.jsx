@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, FileText, ShieldAlert, Sparkles } from 'lucide-react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { LayoutDashboard, FileText, ShieldAlert, Sparkles, User } from 'lucide-react';
 import { AuthContext } from '../../context/AuthContext';
 import { cn } from '../../utils/cn';
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen = true }) => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
+  const isAdminPanel = location.pathname.startsWith('/admin');
 
   const mainLinks = [
-    { icon: LayoutDashboard, label: 'Applicant Dashboard', to: '/dashboard' },
+    { icon: User, label: 'My Dashboard', to: '/my-dashboard' },
+    { icon: LayoutDashboard, label: 'Application Dashboard', to: '/dashboard' },
     { icon: FileText, label: 'Apply for Loan', to: '/apply' },
   ];
 
@@ -40,7 +43,15 @@ export const Sidebar = () => {
   );
 
   return (
-    <div className="w-64 sidebar-panel flex-shrink-0 hidden md:flex flex-col h-full justify-between print:hidden">
+    <div 
+      className={cn(
+        "sidebar-panel flex-shrink-0 hidden md:flex flex-col h-full justify-between print:hidden transition-all duration-300 ease-in-out overflow-hidden",
+        isOpen ? "w-64" : "w-0"
+      )}
+      style={{
+        borderRight: isOpen ? '1px solid var(--border-default)' : 'none'
+      }}
+    >
       <div className="flex flex-col overflow-y-auto pt-4 pb-4 px-3">
         {/* Brand accent banner */}
         <div className="px-2 mb-3">
@@ -51,8 +62,12 @@ export const Sidebar = () => {
         </div>
 
         <nav className="space-y-1">
-          <SectionLabel>Applicant Portal</SectionLabel>
-          {renderLinks(mainLinks)}
+          {!isAdminPanel && (
+            <>
+              <SectionLabel>Applicant Portal</SectionLabel>
+              {renderLinks(mainLinks)}
+            </>
+          )}
 
           {user?.role === 'admin' && (
             <>

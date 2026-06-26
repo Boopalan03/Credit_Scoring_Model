@@ -62,6 +62,10 @@ export const authService = {
   getCurrentUser: () => {
     const userStr = localStorage.getItem('user');
     return userStr ? JSON.parse(userStr) : null;
+  },
+  changePassword: async (currentPassword, newPassword) => {
+    const response = await api.put('/auth/change-password', { currentPassword, newPassword });
+    return response.data;
   }
 };
 

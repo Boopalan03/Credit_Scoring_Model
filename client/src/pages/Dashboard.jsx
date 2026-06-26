@@ -131,7 +131,7 @@ const Dashboard = () => {
               You haven't submitted any loan applications yet. Create an account profile and complete our secure form to assess your credit score, check eligibility, and get instant recommendations.
             </p>
             <Link to="/apply" className="inline-block pt-2">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-slate-900 dark:text-white font-semibold rounded-xl h-11 px-8 shadow-lg shadow-blue-500/20">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl h-11 px-8 shadow-lg shadow-blue-500/20">
                 Start Free Credit Check
               </Button>
             </Link>

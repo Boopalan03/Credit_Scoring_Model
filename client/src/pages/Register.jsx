@@ -23,7 +23,7 @@ const Register = () => {
       if (role === 'admin') {
         navigate('/admin');
       } else {
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (err) {
       // Error handled by toast
