@@ -16,6 +16,9 @@ const chatRoutes = require('./routes/chatRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust reverse proxy (e.g. Render load balancer) for rate-limiting
+app.set('trust proxy', 1);
+
 // Enable security headers and CORS
 app.use(helmet({
   contentSecurityPolicy: false // Allow inline scripts and chart canvas in UI
