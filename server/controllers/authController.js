@@ -27,7 +27,11 @@ const registerUser = async (req, res) => {
       res.status(400).json({ error: 'Invalid user data' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+    console.error("Register Error:", error);
+    res.status(500).json({
+      error: error.message,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
   }
 };
 
@@ -47,7 +51,11 @@ const loginUser = async (req, res) => {
       res.status(401).json({ error: 'Invalid email or password' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+    console.error("Login Error:", error);
+    res.status(500).json({
+      error: error.message,
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
   }
 };
 
