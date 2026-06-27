@@ -33,8 +33,8 @@ app.use(cors({
       return callback(null, true);
     }
     
-    // Dynamically allow any vercel.app subdomain (preview deployments)
-    if (origin.endsWith('.vercel.app') || origin.startsWith('http://localhost:')) {
+    // Dynamically allow any vercel.app or onrender.com subdomains (preview deployments)
+    if (origin.endsWith('.vercel.app') || origin.endsWith('.onrender.com') || origin.startsWith('http://localhost:')) {
       return callback(null, true);
     }
     
