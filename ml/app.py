@@ -45,6 +45,18 @@ def get_risk_level(score):
     else:
         return "Very High Risk", "VERY HIGH RISK"
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'status': 'healthy',
+        'service': 'CreditScoreAI ML Server',
+        'message': 'Welcome to the CreditScoreAI ML Server. Please use the /predict endpoint (POST) for predictions, or /health (GET) to check service status.',
+        'endpoints': {
+            'health': '/health',
+            'predict': '/predict'
+        }
+    })
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({
